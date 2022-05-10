@@ -15,10 +15,11 @@ let initialState = {
       ? JSON.parse(localStorage.getItem("shippingAddress"))
       : {},
   },
-
-  //    auth: {
-  //        isAuthenticated: localStorage.getItem("logAuth") ? JSON.parse(localStorage.getItem("logAuth")) : {}
-  //    }
+  auth: {
+    isAuthenticated: localStorage.getItem("logAuth")
+      ? JSON.parse(localStorage.getItem("logAuth"))
+      : {},
+  },
 };
 
 const middleware = [thunk];

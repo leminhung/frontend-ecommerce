@@ -1,124 +1,130 @@
-import axios from "axios";
 import { toast } from "react-toastify";
 import {
   CART_EMPTY,
   CLEAR_SHIPPING_ADDRESS,
 } from "src/constants/cartConstants";
-import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOAD_USER_REQUEST,
-  LOAD_USER_SUCCESS,
-  LOAD_USER_FAIL,
-  LOGOUT_SUCCESS,
-  LOGOUT_FAIL,
-  CLEAR_ERRORS,
-  LOGOUT_AUTO_SUCCESS,
-  LOGOUT_AUTO_FAIL,
-} from "src/constants/userConstants";
+import AuthServices from "./user.service";
 
-//LOGIN
-// export const login = (email, password) => async (dispatch) =>{
-
-//         try{
-//             dispatch ({type: LOGIN_REQUEST});
-//             const {data} = await axios.post('/api/signin', {email, password} )
-//             dispatch ({
-//                 type: LOGIN_SUCCESS,
-//                 payload: data.user
-//             });
-//         } catch(error){
-//             dispatch ({
-//                 type: LOGIN_FAIL,
-//                 payload: error.response.data.message
-//             });
-//         }
-// }
-
-// SIGN IN USER
-
-export const signin = (email, password) => async (dispatch) => {
-  dispatch({
-    type: LOGIN_REQUEST,
-    payload: { email, password },
-  });
-
-  try {
-    const { data } = await axios.post("/api/signin", { email, password });
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: data.user,
-    });
-    if (data.success === true) {
-      toast.success("Login successfully");
-    }
-  } catch (error) {
-    dispatch({
-      type: LOGIN_FAIL,
-      // payload: error.response && error.response.message.data.messsage ? error.response.data.message : error.message
-      payload: error.response.data.message,
-    });
-
-    toast.error(error.response.data.error);
-  }
+export const AuthActionsEnum = {
+  LOADING: "auth/LOADING",
+  STOP_LOADING: "auth/STOP_LOADING",
+  SET_DATA: "auth/SET_DATA",
+  FAILED: "auth/FAILED",
+  SET_TOKEN: "auth/TOKEN",
+  LOGOUT: "auth/LOGOUT",
+  RESET_ERROR: "auth/RESET_ERROR",
+  SUBMITTING: "auth/SUBMITTING",
+  STOP_SUBMITTING: "auth/STOP_SUBMITTING",
 };
 
-//CURRENTLY LOGGED USER
-export const loadUser = () => async (dispatch) => {
-  try {
-    const { data } = await axios.get("/api/getme");
-    dispatch({
-      type: LOAD_USER_SUCCESS,
-      payload: data.user,
-    });
-  } catch (error) {
-    dispatch({
-      type: LOAD_USER_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+export const authLoadingAction = () => ({
+  type: AuthActionsEnum.LOADING,
+});
 
-//LOG OUT
-export const logOut = () => async (dispatch) => {
-  try {
-    const { data } = await axios.get("/api/logout");
-    dispatch({
-      type: LOGOUT_SUCCESS,
-    });
-    dispatch({ type: CART_EMPTY });
-    dispatch({ type: CLEAR_SHIPPING_ADDRESS });
-    localStorage.removeItem("cartItems");
-    localStorage.removeItem("shippingAddress");
-  } catch (error) {
-    dispatch({
-      type: LOGOUT_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+export const authStopLoadingAction = () => ({
+  type: AuthActionsEnum.STOP_LOADING,
+});
 
-export const logOutAuto = () => async (dispatch) => {
-  setTimeout(async () => {
+export const authSubmittingAction = () => ({
+  type: AuthActionsEnum.SUBMITTING,
+});
+
+export const authStopSubmittingAction = () => ({
+  type: AuthActionsEnum.STOP_SUBMITTING,
+});
+
+export const authFailedAction = (error) => ({
+  type: AuthActionsEnum.FAILED,
+  payload: { error },
+});
+
+export const authSetDataAction = (data) => ({
+  type: AuthActionsEnum.SET_DATA,
+  payload: { data },
+});
+
+export const authSetAccessToken = (token) => ({
+  type: AuthActionsEnum.SET_TOKEN,
+  payload: { token },
+});
+
+export const authLogout = () => ({
+  type: AuthActionsEnum.LOGOUT,
+});
+
+export const resetError = () => ({
+  type: AuthActionsEnum.RESET_ERROR,
+});
+
+export const authSignInAsyncAction =
+  (email, password, navigate) => async (dispatch) => {
     try {
-      const { data } = await axios.get("/api/logout");
-      dispatch({
-        type: LOGOUT_AUTO_SUCCESS,
-      });
-      dispatch({ type: CART_EMPTY });
-      dispatch({ type: CLEAR_SHIPPING_ADDRESS });
-      localStorage.removeItem("cartItems");
-      localStorage.removeItem("shippingAddress");
-      window.location.reload(true);
-      toast.error("Your token is expired, please log again");
+      dispatch(authLoadingAction());
+      const res = await AuthServices.signIn(email, password);
+      dispatch(authSetDataAction(res.data));
+      navigate("/");
+      toast.success("Login successfully");
     } catch (error) {
-      dispatch({
-        type: LOGOUT_AUTO_FAIL,
-        payload: error.response.data.message,
-      });
+      dispatch(authFailedAction(error.message));
+      toast.error(error.response.data.error);
+    } finally {
+      dispatch(authStopLoadingAction());
     }
-  }, 3600000);
-};
+  };
 
-// 3600000
+// //CURRENTLY LOGGED USER
+// export const loadUser = () => async (dispatch) => {
+//   try {
+//     const { data } = await axios.get("/api/getme");
+//     dispatch({
+//       type: LOAD_USER_SUCCESS,
+//       payload: data.user,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: LOAD_USER_FAIL,
+//       payload: error.response.data.message,
+//     });
+//   }
+// };
+
+// //LOG OUT
+// export const logOut = () => async (dispatch) => {
+//   try {
+//     const { data } = await axios.get("/api/logout");
+//     dispatch({
+//       type: LOGOUT_SUCCESS,
+//     });
+//     dispatch({ type: CART_EMPTY });
+//     dispatch({ type: CLEAR_SHIPPING_ADDRESS });
+//     localStorage.removeItem("cartItems");
+//     localStorage.removeItem("shippingAddress");
+//   } catch (error) {
+//     dispatch({
+//       type: LOGOUT_FAIL,
+//       payload: error.response.data.message,
+//     });
+//   }
+// };
+
+// export const logOutAuto = () => async (dispatch) => {
+//   setTimeout(async () => {
+//     try {
+//       const { data } = await axios.get("/api/logout");
+//       dispatch({
+//         type: LOGOUT_AUTO_SUCCESS,
+//       });
+//       dispatch({ type: CART_EMPTY });
+//       dispatch({ type: CLEAR_SHIPPING_ADDRESS });
+//       localStorage.removeItem("cartItems");
+//       localStorage.removeItem("shippingAddress");
+//       window.location.reload(true);
+//       toast.error("Your token is expired, please log again");
+//     } catch (error) {
+//       dispatch({
+//         type: LOGOUT_AUTO_FAIL,
+//         payload: error.response.data.message,
+//       });
+//     }
+//   }, 3600000);
+// };

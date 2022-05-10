@@ -3,7 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 //import toast from 'react-hot-toast';
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import { logOut } from "src/store/user/user.action";
+// import { logOut } from "src/store/user/user.action";
 import avatar from "../images/avatar.png";
 import SearchBox from "./SearchBox";
 
@@ -27,7 +27,7 @@ const Menu = ({ history }) => {
     //     console.log(error)
     // }
 
-    dispatch(logOut());
+    // dispatch(logOut());
     toast.success("Log out successfully", {
       position: "top-right",
       autoClose: 5000,

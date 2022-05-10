@@ -13,6 +13,7 @@ export const listProducts =
       const { data } = await axios.get(
         `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
       );
+
       dispatch({
         type: PRODUCT_LIST_SUCCESS,
         payload: data,
@@ -20,7 +21,6 @@ export const listProducts =
     } catch (error) {
       dispatch({
         type: PRODUCT_LIST_FAIL,
-        // payload: error.response && error.response.message.data.messsage ? error.response.data.message : error.message
         payload: error.response.data.messsage,
       });
     }

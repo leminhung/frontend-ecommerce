@@ -29,19 +29,15 @@ const ViewProduct = ({ match, history }) => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    //axios.get(`/api/${props.match.url}`)
     axios.get(`/api/product/${match.params.productid}`).then((res) => {
-      // console.log("res review",res.data.product);
       setProduct(res.data.product);
 
       setLoading(false);
     });
   }, [numReviews]);
 
-  // handle click card
   const handleClickCard = () => {
     dispatch(addItemToCart(match.params.productid, qty));
-    //console.log("item add to cart");
     history.push("/cart");
   };
 

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { addItemToCart } from "src/store/cart/cart.action";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+
+import { addItemToCart } from "src/store/cart/cart.action";
 import imgDefault from "../images/imgcallback.png";
 import Rating from "./Rating";
 
@@ -11,6 +12,7 @@ const Card = ({ product, id, countStock, rating, numReviews }) => {
     dispatch(addItemToCart(id, 1));
     toast.success("Added to shopping cart");
   };
+
   return (
     <div className='col-md-3 ' style={{ marginTop: "20px" }}>
       <div className='card'>

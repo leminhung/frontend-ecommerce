@@ -17,7 +17,7 @@ import UserDashboardEdit from "../user/UserDashboardEdit";
 import PrivateAdminRoute from "../component/PrivateAdminRoute";
 import ViewProduct from "../product/ViewProduct";
 import PrivateRoute from "./PrivateRoute";
-import { loadUser } from "src/store/user/user.action";
+// import { loadUser } from "src/store/user/user.action";
 import store from "../store";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,7 +29,7 @@ import AdminShowOrders from "../admin/AdminShowOrders";
 
 const Routes = () => {
   useEffect(() => {
-    store.dispatch(loadUser());
+    // store.dispatch(loadUser());
   }, []);
   return (
     <>

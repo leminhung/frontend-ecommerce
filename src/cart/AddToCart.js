@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Menu from "../component/Menu";
-import Footer from "../component/Footer";
+
+import Menu from "src/component/Menu";
+import Footer from "src/component/Footer";
 import { addItemToCart, removeToCart } from "src/store/cart/cart.action";
 
 const AddToCart = ({ history }) => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
-  console.log(cartItems);
 
   //INCREASE VALUE
   const increaseValue = (id, quantity, countStock) => {
@@ -18,8 +18,6 @@ const AddToCart = ({ history }) => {
 
   //DECREASE VALUE
   const decreaseValue = (id, quantity) => {
-    //console.log("actual qty", quantity);
-
     const newQty = quantity - 1;
     if (newQty < 1) return;
     dispatch(addItemToCart(id, newQty));

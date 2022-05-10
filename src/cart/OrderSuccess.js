@@ -6,7 +6,6 @@ const OrderSuccess = () => {
   return (
     <>
       <Menu />
-
       <div className='container' style={{ padding: "100px 0" }}>
         <h1 className='text-center'>Order Confirmation</h1>
         <div className='bg'>

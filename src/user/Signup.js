@@ -28,8 +28,6 @@ const Signup = ({ history }) => {
     };
   };
 
-  //console.log("avatar test", avatar);
-
   // get the values in the form
   const handleChange = (name) => (e) => {
     setValues({ ...values, [name]: e.target.value });
@@ -39,15 +37,16 @@ const Signup = ({ history }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //console.log(name, email, password);
     try {
-      const user = { name, email, password };
-      const { data } = await axios.post(`/api/signup`, {
-        name,
-        email,
-        password,
-        avatar,
-      });
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/api/v1/auth/register`,
+        {
+          name,
+          email,
+          password,
+          // avatar,
+        }
+      );
 
       if (data.success === true) {
         //console.log(signUser.data);
@@ -57,8 +56,6 @@ const Signup = ({ history }) => {
 
       history.push("/signin");
     } catch (err) {
-      //console.log(err.response.data.error);
-
       if (err.response.data.success === false) {
         toast.error(err.response.data.error);
       }
@@ -68,7 +65,7 @@ const Signup = ({ history }) => {
   return (
     <div>
       <Menu />
-      {/* <Header title="Sign Up" description="Please sign up to our application"/> */}
+
       <div className='container custom_class'>
         <h2 className='signup_title '>SIGN UP</h2>
         <form className=' col-sm-6 offset-3 pt-5 signup_form'>
