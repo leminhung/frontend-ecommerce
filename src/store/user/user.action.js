@@ -56,21 +56,19 @@ export const resetError = () => ({
   type: AuthActionsEnum.RESET_ERROR,
 });
 
-export const authSignInAsyncAction =
-  (email, password, navigate) => async (dispatch) => {
-    try {
-      dispatch(authLoadingAction());
-      const res = await AuthServices.signIn(email, password);
-      dispatch(authSetDataAction(res.data));
-      navigate("/");
-      toast.success("Login successfully");
-    } catch (error) {
-      dispatch(authFailedAction(error.message));
-      toast.error(error.response.data.error);
-    } finally {
-      dispatch(authStopLoadingAction());
-    }
-  };
+export const authSignInAsyncAction = (email, password) => async (dispatch) => {
+  try {
+    dispatch(authLoadingAction());
+    const res = await AuthServices.signIn(email, password);
+    dispatch(authSetDataAction(res.data));
+    toast.success("Login successfully");
+  } catch (error) {
+    dispatch(authFailedAction(error.message));
+    toast.error(error.response.data.error);
+  } finally {
+    dispatch(authStopLoadingAction());
+  }
+};
 
 // //CURRENTLY LOGGED USER
 // export const loadUser = () => async (dispatch) => {

@@ -10,11 +10,6 @@ import {
 } from "src/store/user/user.action.js";
 
 const Signin = ({ history, ...props }) => {
-  //query string url parameter
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
-
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -23,21 +18,15 @@ const Signin = ({ history, ...props }) => {
   const { email, password } = values;
   const dispatch = useDispatch();
 
-  const { isAuthenticated, error } = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
-    console.log("authen--", isAuthenticated);
+    const { isAuthenticated } = auth;
+    console.log(isAuthenticated);
     if (isAuthenticated) {
-      history.push("/hekko");
+      // history.push("/");
     }
-  }, [dispatch, isAuthenticated, error, history]);
-
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     props.history.push(redirect);
-  //     dispatch(logOutAuto());
-  //   }
-  // }, [props.history, redirect, isAuthenticated]);
+  }, [auth, history]);
 
   const handleChange = (name) => (e) => {
     setValues({ ...values, [name]: e.target.value });

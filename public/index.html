@@ -1,8 +1,11 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link
+      rel="shortcut icon"
+      href="%PUBLIC_URL%/favicon.svg"
+      type="image/svg+xml"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -10,83 +13,107 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!-- <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-    rel="stylesheet"
-    /> -->
     <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
     />
     <!-- Google Fonts -->
     <link
-    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-    rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
     />
     <!-- MDB -->
     <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
-    rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+      rel="stylesheet"
     />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
-    crossorigin="anonymous"></script>
- 
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+      integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+      crossorigin="anonymous"
+    ></script>
+
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/css/style.css" />
 
     <title>Full stack web App</title>
   </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+  <body id="top">
     <div id="root"></div>
-    
-       <!-- MDB -->
-  <script
-  type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js"
-  ></script>
-    <script>
-        // Graph
-        var ctx = document.getElementById("myChart");
 
-        var myChart = new Chart(ctx, {
-          type: "line",
-          data: {
-            labels: [
-              "Sunday",
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-            ],
-            datasets: [
+    <a href="#top" className="go-top-btn" data-go-top>
+      <ion-icon name="arrow-up-outline"></ion-icon>
+    </a>
+    <!-- MDB -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js"
+    ></script>
+    <script>
+      // Graph
+      var ctx = document.getElementById("myChart");
+
+      var myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ],
+          datasets: [
+            {
+              data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+              lineTension: 0,
+              backgroundColor: "transparent",
+              borderColor: "#007bff",
+              borderWidth: 4,
+              pointBackgroundColor: "#007bff",
+            },
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
               {
-                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-                lineTension: 0,
-                backgroundColor: "transparent",
-                borderColor: "#007bff",
-                borderWidth: 4,
-                pointBackgroundColor: "#007bff",
+                ticks: {
+                  beginAtZero: false,
+                },
               },
             ],
           },
-          options: {
-            scales: {
-              yAxes: [
-                {
-                  ticks: {
-                    beginAtZero: false,
-                  },
-                },
-              ],
-            },
-            legend: {
-              display: false,
-            },
+          legend: {
+            display: false,
           },
-        });
+        },
+      });
     </script>
+    <!-- 
+    - custom js link
+  -->
+    <script src="%PUBLIC_URL%/js/script.js"></script>
+
+    <!-- 
+    - ionicon link
+  -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
   </body>
 </html>
