@@ -1,20 +1,39 @@
-import React from "react";
-// import "antd/dist/antd.css";
-
-// import ProductList from "./component/ProductList";
-// import Footer from "./component/Footer";
-// import Header from "./component/Header";
-// import Menu from "./component/Menu";
+import React, { useRef } from "react";
 
 const App = () => {
+  const refOverlay = useRef(null);
+  const refNavOpenBtn = useRef(null);
+  const refNavCloseBtn = useRef(null);
+  const refNavbar = useRef(null);
+  const refHeader = useRef(null);
+  const refBackToTop = useRef(null);
+
+  const toggleNavbar = () => {
+    refNavbar.current.classList.toggle("active");
+    refOverlay.current.classList.toggle("active");
+  };
+
+  window.addEventListener("scroll", function () {
+    if (window.scrollY >= 80) {
+      refHeader.current.classList.add("active");
+      refBackToTop.current.classList.add("active");
+    } else {
+      refHeader.current.classList.remove("active");
+      refBackToTop.current.classList.remove("active");
+    }
+  });
+
   return (
     <>
       {/* - #HEADER */}
-
-      <header className='header' data-header>
+      <header className='header' data-header ref={refHeader}>
         <div className='container'>
-          <div className='overlay' data-overlay></div>
-
+          <div
+            className='overlay'
+            data-overlay
+            ref={refOverlay}
+            onClick={toggleNavbar}
+          ></div>
           <a href='#' className='logo'>
             <img
               src='/images/logo.svg'
@@ -23,20 +42,22 @@ const App = () => {
               alt='Footcap logo'
             />
           </a>
-
           <button
             className='nav-open-btn'
             data-nav-open-btn
             aria-label='Open Menu'
+            ref={refNavOpenBtn}
+            onClick={toggleNavbar}
           >
             <ion-icon name='menu-outline'></ion-icon>
           </button>
-
-          <nav className='navbar' data-navbar>
+          <nav className='navbar' data-navbar ref={refNavbar}>
             <button
               className='nav-close-btn'
               data-nav-close-btn
               aria-label='Close Menu'
+              ref={refNavCloseBtn}
+              onClick={toggleNavbar}
             >
               <ion-icon name='close-outline'></ion-icon>
             </button>
@@ -162,7 +183,7 @@ const App = () => {
                 array of leadership.
               </p>
 
-              <button className='btn btn-primary'>
+              <button className='btn btn-primary custom-btn'>
                 <span>Shop Now</span>
 
                 <ion-icon
@@ -1106,7 +1127,7 @@ const App = () => {
 
                     <h3 className='h2 card-title'>The Summer Sale Off 50%</h3>
 
-                    <a href='#' className='btn btn-link'>
+                    <a href='#' className='btn btn-link custom-link'>
                       <span>Shop Now</span>
 
                       <ion-icon
@@ -1128,7 +1149,7 @@ const App = () => {
                       Makes Yourself Keep Sporty
                     </h3>
 
-                    <a href='#' className='btn btn-link'>
+                    <a href='#' className='btn btn-link custom-link'>
                       <span>Shop Now</span>
 
                       <ion-icon
@@ -1152,7 +1173,7 @@ const App = () => {
               >
                 <h2 className='h3 banner-title'>New Trend Edition</h2>
 
-                <a href='#' className='btn btn-link'>
+                <a href='#' className='btn btn-link custom-link'>
                   <span>Explore All</span>
 
                   <ion-icon
@@ -1855,24 +1876,29 @@ const App = () => {
                     <ion-icon name='location'></ion-icon>
 
                     <span className='footer-link-text'>
-                      2751 S Parker Rd, Aurora, CO 80014, United States
+                      Thon Den, Di Trach, Hoai Duc, Ha Noi, Viet Nam
                     </span>
                   </address>
                 </li>
 
                 <li>
-                  <a href='tel:+557343673257' className='footer-link'>
+                  <a href='tel:+84843987789' className='footer-link'>
                     <ion-icon name='call'></ion-icon>
 
-                    <span className='footer-link-text'>+557343673257</span>
+                    <span className='footer-link-text'>+84843987789</span>
                   </a>
                 </li>
 
                 <li>
-                  <a href='mailto:footcap@help.com' className='footer-link'>
+                  <a
+                    href='mailto:leminhhungtabletennis@gmail.com'
+                    className='footer-link'
+                  >
                     <ion-icon name='mail'></ion-icon>
 
-                    <span className='footer-link-text'>footcap@help.com</span>
+                    <span className='footer-link-text'>
+                      leminhhungtabletennis@gmail.com
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -2009,6 +2035,11 @@ const App = () => {
           </div>
         </div>
       </footer>
+
+      {/* - #GO TO TOP */}
+      <a href='#top' class='go-top-btn' data-go-top ref={refBackToTop}>
+        <ion-icon name='arrow-up-outline'></ion-icon>
+      </a>
     </>
   );
 };
