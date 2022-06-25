@@ -359,7 +359,8 @@ body {
 
 .card-price {
   color: var(--bittersweet);
-  font-family: var(--ff-roboto);
+  font-size: 16px;
+  font-family: "Time new roman", sans-serif;
   font-weight: var(--fw-600);
 }
 
