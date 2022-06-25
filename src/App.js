@@ -14,11 +14,16 @@ const App = () => {
   };
 
   window.addEventListener("scroll", function () {
-    if (window.scrollY >= 80) {
+    if (window.scrollY >= 50) {
       refHeader.current.classList.add("active");
-      refBackToTop.current.classList.add("active");
     } else {
       refHeader.current.classList.remove("active");
+    }
+  });
+  window.addEventListener("scroll", function () {
+    if (window.scrollY >= 500) {
+      refBackToTop.current.classList.add("active");
+    } else {
       refBackToTop.current.classList.remove("active");
     }
   });
@@ -38,7 +43,7 @@ const App = () => {
             <img
               src='/images/logo.svg'
               width='160'
-              height='50'
+              height='45'
               alt='Footcap logo'
             />
           </a>
