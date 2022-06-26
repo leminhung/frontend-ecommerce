@@ -1,4 +1,7 @@
 import React, { useRef } from "react";
+import { Link } from "react-router-dom";
+
+import "./styles.css";
 
 const Header = () => {
   const refNavOpenBtn = useRef(null);
@@ -112,14 +115,13 @@ const Header = () => {
                 <span className='nav-action-text'>Search</span>
               </button>
             </li>
-
-            <li>
-              <a href='#' className='nav-action-btn'>
+            {/* <li>
+              <a href='/signin' className='nav-action-btn'>
                 <ion-icon name='person-outline' aria-hidden='true'></ion-icon>
 
                 <span className='nav-action-text'>Login / Register</span>
               </a>
-            </li>
+            </li> */}
 
             <li>
               <button className='nav-action-btn'>
@@ -145,6 +147,53 @@ const Header = () => {
                   4
                 </data>
               </button>
+            </li>
+            <li>
+              <Link
+                className='nav-action-btn dropdown-toggle d-flex align-items-center hidden-arrow'
+                href='#'
+                id='navbarDropdownMenuLink'
+                role='button'
+                data-mdb-toggle='dropdown'
+                aria-expanded='false'
+              >
+                <ion-icon name='person-outline' aria-hidden='true'></ion-icon>
+                <span className='nav-action-text custom_options'>Options</span>
+
+                {/* <img
+                  // src={user && user.avatar ? user.avatar : avatar}
+                  src='/ds'
+                  className='rounded-circle'
+                  height='25'
+                  alt=''
+                  loading='lazy'
+                /> */}
+              </Link>
+              <ul
+                className='dropdown-menu dropdown-menu-end'
+                aria-labelledby='navbarDropdownMenuLink'
+              >
+                <li>
+                  <Link className='dropdown-item' to='/user/dashboard'>
+                    My profile
+                  </Link>
+                </li>
+                <li>
+                  <Link className='dropdown-item' to='/signin'>
+                    Sign in
+                  </Link>
+                </li>
+                <li>
+                  <Link className='dropdown-item' to='/signup'>
+                    Sign up
+                  </Link>
+                </li>
+                <li>
+                  <Link className='dropdown-item' to='/admin/dashboard'>
+                    Admin Dashboard
+                  </Link>
+                </li>
+              </ul>
             </li>
           </ul>
         </nav>

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-import Footer from "src/component/Footer";
+import "./styles.css";
 import Menu from "src/component/Menu";
+
+// import Header from "src/component/Header";
+import Footer from "src/component/Footer";
 import {
   authSignInAsyncAction,
   logOutAuto,
@@ -39,8 +41,7 @@ const Signin = ({ history, ...props }) => {
 
   return (
     <div>
-      <Menu />
-      <div className='container custom_class'>
+      {/* <div className='container custom_class'>
         <h2 className='signup_title '>SIGN IN </h2>
         <form className=' col-sm-6 offset-3 pt-5 signup_form'>
           <div className='form-outline mb-4'>
@@ -78,8 +79,55 @@ const Signin = ({ history, ...props }) => {
           </button>
           <h6>Not a user? {<Link to='/signup'>Sign Up</Link>} </h6>
         </form>
+      </div> */}
+
+      <div class='container custom_class'>
+        <div class='row'>
+          <div class='col-md-offset-3 col-md-6'>
+            <form class='form-horizontal col-sm-12 offset-6 pt-5 signup_form'>
+              <span class='heading'>Log In</span>
+              <div class='form-group'>
+                <input
+                  type='email'
+                  class='form-control'
+                  id='inputEmail3'
+                  placeholder='Email'
+                />
+                <i class='fa fa-user'></i>
+              </div>
+              <div class='form-group help'>
+                <input
+                  type='password'
+                  class='form-control'
+                  id='inputPassword3'
+                  placeholder='Password'
+                />
+                <i class='fa fa-lock'></i>
+                <a href='#' class='fa fa-question-circle'></a>
+              </div>
+              <div class='form-group'>
+                <div class='main-checkbox'>
+                  <input
+                    type='checkbox'
+                    value='None'
+                    id='checkbox1'
+                    name='check'
+                  />
+                  <label for='checkbox1'></label>
+                </div>
+                <span class='text'>Remember me</span>
+                <button type='submit' class='btn btn-default'>
+                  log in
+                </button>
+              </div>
+              <span class='register'>
+                <a href='/signup'>Signup /</a>
+                <a href='#'>Forgot password</a>
+              </span>
+            </form>
+          </div>
+        </div>
       </div>
-      <Footer />
     </div>
   );
 };
