@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+
 import "./styles.css";
 
 const Signup = ({ history }) => {
@@ -8,24 +9,10 @@ const Signup = ({ history }) => {
     name: "",
     email: "",
     password: "",
+    repassword: "",
   });
 
-  const [avatar, setAvatar] = useState("");
-
-  const { name, email, password } = values;
-
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    setFileToBase(file);
-  };
-
-  const setFileToBase = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setAvatar(reader.result);
-    };
-  };
+  const { name, email, password, repassword } = values;
 
   // get the values in the form
   const handleChange = (name) => (e) => {
@@ -37,23 +24,33 @@ const Signup = ({ history }) => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/api/v1/auth/register`,
+      const { data, status } = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/auth/register`,
         {
           name,
           email,
           password,
-          // avatar,
         }
       );
 
-      if (data.success === true) {
-        //console.log(signUser.data);
-        toast.success("Account created, please log In");
-        setValues({ name: "", email: "", password: "" });
+      switch (status) {
+        case 200:
+          toast.success("Account created, please log In");
+          setValues({ name: "", email: "", password: "", repassword: "" });
+          break;
+        case 400:
+          toast.error("Account existed, try another");
+          setValues({ name: "", email: "", password: "", repassword: "" });
+          break;
+        case 404:
+          toast.error("Please fill in form");
+          setValues({ name: "", email: "", password: "", repassword: "" });
+          break;
+        default:
+          break;
       }
 
-      history.push("/signin");
+      // history.push("/signin");
     } catch (err) {
       if (err.response.data.success === false) {
         toast.error(err.response.data.error);
@@ -62,74 +59,6 @@ const Signup = ({ history }) => {
   };
 
   return (
-    // <div className='container custom_class'>
-    //   <h2 className='signup_title '>SIGN UP</h2>
-    //   <form className=' col-sm-6 offset-3 pt-5 signup_form'>
-    //     <div className='form-outline mb-4'>
-    //       <input
-    //         onChange={handleChange("name")}
-    //         type='text'
-    //         id='form4Example1'
-    //         className='form-control'
-    //         value={name}
-    //       />
-    //       <label className='form-label' htmlFor='form4Example1'>
-    //         Name
-    //       </label>
-    //     </div>
-
-    //     <div className='form-outline mb-4'>
-    //       <input
-    //         onChange={handleChange("email")}
-    //         type='email'
-    //         id='form4Example2'
-    //         className='form-control'
-    //         value={email}
-    //       />
-    //       <label className='form-label' htmlFor='form4Example2'>
-    //         Email{" "}
-    //       </label>
-    //     </div>
-
-    //     <div className='form-outline mb-4'>
-    //       <input
-    //         onChange={handleChange("password")}
-    //         type='password'
-    //         id='form4Example3'
-    //         className='form-control'
-    //         value={password}
-    //       />
-    //       <label className='form-label' htmlFor='form4Example3'>
-    //         Password
-    //       </label>
-    //     </div>
-
-    //     {/* <div className="form-outline mb-4">
-    //                     <input  type="file" id="formupload" name="image" className="form-control" />
-    //                     <label className="form-label" htmlFor="form4Example2"  onChange={handleImage} >Avatar</label>
-    //                 </div> */}
-
-    //     <div className='form-outline mb-4'>
-    //       {/* <label className="form-label" htmlFor="formFileLg">Avatar</label> */}
-    //       <input
-    //         className='form-control '
-    //         id='formFileLg'
-    //         type='file'
-    //         onChange={handleImage}
-    //         placeholder='Add profile picture'
-    //       />
-    //     </div>
-
-    //     <button
-    //       onClick={handleSubmit}
-    //       type='submit'
-    //       className='btn btn-primary btn-block mb-4'
-    //     >
-    //       Register
-    //     </button>
-    //     <img className='img-fluid' alt={name} src={avatar} />
-    //   </form>
-    // </div>
     <div class='container custom_class'>
       <div class='row'>
         <div class='col-md-offset-3 col-md-6'>
@@ -137,29 +66,46 @@ const Signup = ({ history }) => {
             <span class='heading'>Sign up</span>
             <div class='form-group'>
               <input
+                onChange={handleChange("email")}
                 type='email'
                 class='form-control'
                 id='inputEmail3'
                 placeholder='Email'
+                value={email}
+              />
+              <i class='fa fa-envelope'></i>
+            </div>
+            <div class='form-group'>
+              <input
+                onChange={handleChange("name")}
+                type='text'
+                class='form-control'
+                id='inputEmail3'
+                placeholder='Username'
+                value={name}
               />
               <i class='fa fa-user'></i>
             </div>
             <div class='form-group help'>
               <input
+                onChange={handleChange("password")}
                 type='password'
                 class='form-control'
                 id='inputPassword3'
                 placeholder='Password'
+                value={password}
               />
               <i class='fa fa-lock'></i>
               <a href='#' class='fa fa-question-circle'></a>
             </div>
             <div class='form-group help'>
               <input
+                onChange={handleChange("repassword")}
                 type='password'
                 class='form-control'
                 id='inputPassword3'
                 placeholder='Reenter password'
+                value={repassword}
               />
               <i class='fa fa-repeat'></i>
               <a href='#' class='fa fa-question-circle'></a>
@@ -175,7 +121,11 @@ const Signup = ({ history }) => {
                 <label for='checkbox1'></label>
               </div>
               <span class='text'>Remember me</span>
-              <button type='submit' class='btn btn-default'>
+              <button
+                onClick={handleSubmit}
+                type='submit'
+                class='btn btn-default'
+              >
                 Sign up
               </button>
             </div>
