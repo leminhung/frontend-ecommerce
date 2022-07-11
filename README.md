@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# Frontend-ecommerce
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project structure
+```
+repo/
+  |__public/
+  | |__css/
+  | | |__style.css
+  | |__images/
+  |   |__*.jpg
+  |   |__*.png
+  |   |__*.svg
+  | |__...
+  |__src/
+  | |__admin/
+  |   |__AdminCreateCategory.js
+  |   |__AdminDashBoard.js
+  |   |__AdminEditProductCategory.js
+  |   |__...
+  | |__cart/
+  |   |__AddToCart.js
+  |   |__OrderSuccess.js
+  |   |__...
+  | |__component/
+  |   |__Header
+  |   |__Cart
+  |   |__ProductList
+  |   |__...
+  | |__constants/
+  |   |__cartConstants.js
+  |   |__endpoints.js
+  |   |__errorMessage.js
+  |   |__...
+  | |__images/
+  |   |__*.png
+  |   |__*.jpg
+  | |__product/
+  |   |__createProduct.js
+  |   |__viewProduct.js
+  | |__store/
+  |   |__cart
+  |     |__cart.actions.js
+  |     |__cart.reducer.js
+  |   |__order
+  |     |__order.actions.js
+  |     |__order.reducer.js
+  |   |__product
+  |     |__product.actions.js
+  |     |__product.reducer.js
+  |   |__user
+  |     |__user.actions.js
+  |     |__user.reducer.js
+  |     |__user.service.js
+  |   |__index.js
+  |   |__root.reducer.js
+  | |__stripebutton/
+  |   |__StripeButton.js
+  | |__user/
+  |   |__Signin
+  |   |__Signup
+  |   |__*.js
+  | |__utils/
+  |   |__Axios.js
+  | |__App.css  
+  | |__App.js  
+  | |__index.js  
+  |__.env
+  |__.gitignore
+  |__jsconfig.json
+  |__package.json
+  |__README.md
+  |__yarn.lock
+```
 
-## Available Scripts
+Purpose of folders
+* `src/admin/*js` chứa các file thực hiện chức năng và thành phần của Admin
+* `src/component/*` chứa các files và folders là các components của website
+* `src/constants/*.js` định nghĩa giá trị của các biến sử dụng trong project 
+* `src/store` là nơi quản lý `state` của website bằng redux 
+* `src/utils` là nơi chứa những chức năng cần thiết để có thê reuse lại trong project 
+* `.env` là nơi chứa các biến môi trường
+* `package.json` là nơi chứa các thư viện được sử dụng trong project
 
-In the project directory, you can run:
 
-### `npm start`
+## Guide
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```sh
+$ git clone https://github.com/leminhung/frontend-ecommerce
+$ cd frontend-ecommerce
+$ npm install
+$ npm start
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## References
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [React Router](https://reactrouter.com/docs/en/v6/getting-started/overview)
+- [Redux](https://react-redux.js.org/)
+- [Axios](https://viblo.asia/p/su-dung-axios-voi-react-1Je5E4zAlnL)
+- [React documentation](https://reactjs.org/)
