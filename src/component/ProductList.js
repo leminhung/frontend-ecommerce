@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { listProducts } from "src/store/product/product.action";
-import Card from "./Card";
+import Card from "./Cart";
 import Loading from "./Loading";
 
 const List = ({ loading, products, keyword }) => {

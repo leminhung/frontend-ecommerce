@@ -137,6 +137,12 @@ const Header = () => {
 
             <li>
               <button className='nav-action-btn'>
+                <Link to={
+                  {
+                    pathname:"./../Cart",
+                  }
+                }>
+                </Link>
                 <ion-icon name='bag-outline' aria-hidden='true'></ion-icon>
 
                 <data className='nav-action-text' value='318.00'>
