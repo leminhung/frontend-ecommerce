@@ -2,6 +2,7 @@ import React from "react";
 
 import Header from "src/component/Header";
 import Footer from "src/component/Footer";
+import { Link } from "react-router-dom";
 
 const App = () => {
   return (
@@ -234,7 +235,9 @@ const App = () => {
                       </div>
 
                       <h3 className='h3 card-title'>
-                        <a href='#'>Running Sneaker Shoes</a>
+                        <Link className='dropdown-item' to='/user/dashboard'>
+                          <a>Running Sneaker Shoes</a>
+                        </Link>
                       </h3>
 
                       <data className='card-price' value='180.85'>

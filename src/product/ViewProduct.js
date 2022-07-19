@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import Menu from "../component/Menu";
+import Header from "src/component/Header";
 import Footer from "../component/Footer";
 import { addItemToCart } from "src/store/cart/cart.action";
 import Loading from "../component/Loading";
@@ -13,9 +13,13 @@ const ViewProduct = ({ match, history }) => {
   const [product, setProduct] = useState("");
   const [qty, setQty] = useState(1);
   const {
-    name,
+    title,
     price,
     description,
+    status,
+    discount,
+    size,
+    color,
     countStock,
     reviews,
     numReviews,
@@ -29,12 +33,15 @@ const ViewProduct = ({ match, history }) => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    axios.get(`/api/product/${match.params.productid}`).then((res) => {
-      setProduct(res.data.product);
-
-      setLoading(false);
-    });
+    axios
+      .get(`http://localhost:5000/api/v1/products/${match.params.productid}`)
+      .then((res) => {
+        setProduct(res.data.data);
+        setLoading(false);
+      });
+    console.log("done ")
   }, [numReviews]);
+  console.log(product);
 
   const handleClickCard = () => {
     dispatch(addItemToCart(match.params.productid, qty));
@@ -90,22 +97,125 @@ const ViewProduct = ({ match, history }) => {
       });
   };
 
-  useEffect(() => {}, [numReviews]);
+  useEffect(() => { }, [numReviews]);
 
+  //Chose color
+  const [colorChose, setColorChose] = useState("")
+  function handleChoseColor(e) {
+    e.target.classList.toggle("color-item-chose");
+    document.querySelectorAll('[color]')
+
+  }
   return (
     <>
-      <Menu />
+      <Header></Header>
       <div className='container single_product'>
-        {loading ? (
+        {false ? (
           <Loading />
         ) : (
           <div className='row'>
+            <div className='col-sm-6 '>
+              <img style={{ width: "100%" }} src="https://traffic-edge07.cdn.vncdn.io/nvn/ncdn/store/662/ps/20220711/GN0153__2_.jpg" alt="" />
+            </div>
+            <div className='col-sm-6'>
+              <div className='product_desc_wrapper'>
+                <div className='product_title'>
+                  <h1>{title}</h1>
+
+                  <hr />
+                  <h2>${price}</h2>
+                  <h4>-{discount}%</h4>
+                </div>
+
+                <div className='qty_and_addtocart'>
+                  <div className="qty">
+                    <div
+                      onClick={decreaseValue}
+                      class='value-button'
+                      id='decrease'
+                      value='Decrease Value'
+                    >
+                      -
+                    </div>
+                    <input type='number' id='number' value={qty} readOnly />
+                    <div
+                      onClick={increaseValue}
+                      class='value-button'
+                      id='increase'
+                      value='Increase Value'
+                    >
+                      +
+                    </div>
+                  </div>
+                  <div className="product-color">
+                    <h3>Màu sắc</h3>
+                    <div className="product-color-list">
+                      <div
+                        className="product-color-item color-item-chose"
+                        style={{ backgroundColor: color }}
+                        onClick={handleChoseColor}
+                        name="color"
+                      >
+                      </div>
+                      <div
+                        className="product-color-item"
+                        style={{ backgroundColor: color }}
+                        onClick={handleChoseColor}
+                        name="color"
+                      >
+                      </div>
+                    </div>
+                  </div>
+                  <div className="product-size">
+
+                    <h3>Size</h3>
+                    <div className="product-size-list">
+                      <div
+                        className="product-size-item size-item-chose"
+                      >
+                        M
+                      </div>
+                      <div
+                        className="product-size-item"
+                      >
+                        L
+                      </div>
+                      <div
+                        className="product-size-item"
+                      >
+                        XL
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    // style={{ display: countStock ? "block" : "none" }}
+                    onClick={handleClickCard}
+                    className='addtocart'
+                  >
+                    Add to cart
+                  </button>
+                </div>
+                <div className='stock'>
+                  <hr />
+                  <h6>
+                    Status:{" "}
+                    {status}
+                  </h6>
+                </div>
+
+                <hr />
+                <div className='desc'>
+                  <h2>Description</h2>
+                  <p>{description}</p>
+                </div>
+              </div>
+            </div>
             <div className='col-sm-6 '>
               <div className='img_div'>
                 <img
                   className='img-fluid'
                   src={avatar ? avatar : ""}
-                  alt={name}
+                  alt={title}
                 />
                 <div className='review' style={{ paddingTop: "10px" }}>
                   <h4>REVIEWS</h4>
@@ -204,64 +314,6 @@ const ViewProduct = ({ match, history }) => {
                       )}
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className='col-sm-6'>
-              <div className='product_desc_wrapper'>
-                <div className='product_title'>
-                  <h1>{name}</h1>
-                  <span>
-                    <h6>Product # {_id}</h6>
-                  </span>
-                  <hr />
-                  <h1>${price}</h1>
-                </div>
-
-                <div className='qty_and_addtocart'>
-                  <div>
-                    <div
-                      onClick={decreaseValue}
-                      class='value-button'
-                      id='decrease'
-                      value='Decrease Value'
-                    >
-                      -
-                    </div>
-                    <input type='number' id='number' value={qty} readOnly />
-                    <div
-                      onClick={increaseValue}
-                      class='value-button'
-                      id='increase'
-                      value='Increase Value'
-                    >
-                      +
-                    </div>
-                  </div>
-                  <button
-                    style={{ display: countStock ? "block" : "none" }}
-                    onClick={handleClickCard}
-                    className='addtocart'
-                  >
-                    Add to cart
-                  </button>
-                </div>
-                <div className='stock'>
-                  <hr />
-                  <h6>
-                    Status:{" "}
-                    {countStock < 1 ? (
-                      <span className='text-danger'>Out of Stock</span>
-                    ) : (
-                      <span className='text-success'>Available</span>
-                    )}
-                  </h6>
-                </div>
-
-                <hr />
-                <div className='desc'>
-                  <h2>Description</h2>
-                  <p>{description}</p>
                 </div>
               </div>
             </div>
