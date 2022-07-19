@@ -59,59 +59,59 @@ const Signup = ({ history }) => {
   };
 
   return (
-    <div class='container custom_class'>
-      <div class='row'>
-        <div class='col-md-offset-3 col-md-6'>
-          <form class='form-horizontal col-sm-12 offset-6 pt-5 signup_form'>
-            <span class='heading'>Sign up</span>
-            <div class='form-group'>
+    <div className='container custom_class'>
+      <div className='row'>
+        <div className='col-md-offset-3 col-md-6'>
+          <form className='form-horizontal col-sm-12 offset-6 pt-5 signup_form'>
+            <span className='heading'>Sign up</span>
+            <div className='form-group'>
               <input
                 onChange={handleChange("email")}
                 type='email'
-                class='form-control'
+                className='form-control'
                 id='inputEmail3'
                 placeholder='Email'
                 value={email}
               />
-              <i class='fa fa-envelope'></i>
+              <i className='fa fa-envelope'></i>
             </div>
-            <div class='form-group'>
+            <div className='form-group'>
               <input
                 onChange={handleChange("name")}
                 type='text'
-                class='form-control'
+                className='form-control'
                 id='inputEmail3'
                 placeholder='Username'
                 value={name}
               />
-              <i class='fa fa-user'></i>
+              <i className='fa fa-user'></i>
             </div>
-            <div class='form-group help'>
+            <div className='form-group help'>
               <input
                 onChange={handleChange("password")}
                 type='password'
-                class='form-control'
+                className='form-control'
                 id='inputPassword3'
                 placeholder='Password'
                 value={password}
               />
-              <i class='fa fa-lock'></i>
-              <a href='#' class='fa fa-question-circle'></a>
+              <i className='fa fa-lock'></i>
+              <a href='#' className='fa fa-question-circle'></a>
             </div>
-            <div class='form-group help'>
+            <div className='form-group help'>
               <input
                 onChange={handleChange("repassword")}
                 type='password'
-                class='form-control'
+                className='form-control'
                 id='inputPassword3'
                 placeholder='Reenter password'
                 value={repassword}
               />
-              <i class='fa fa-repeat'></i>
-              <a href='#' class='fa fa-question-circle'></a>
+              <i className='fa fa-repeat'></i>
+              <a href='#' className='fa fa-question-circle'></a>
             </div>
-            <div class='form-group'>
-              <div class='main-checkbox'>
+            <div className='form-group'>
+              <div className='main-checkbox'>
                 <input
                   type='checkbox'
                   value='None'
@@ -120,16 +120,16 @@ const Signup = ({ history }) => {
                 />
                 <label for='checkbox1'></label>
               </div>
-              <span class='text'>Remember me</span>
+              <span className='text'>Remember me</span>
               <button
                 onClick={handleSubmit}
                 type='submit'
-                class='btn btn-default'
+                className='btn btn-default'
               >
                 Sign up
               </button>
             </div>
-            <span class='register'>
+            <span className='register'>
               <a href='/signin'>Signin /</a>
               <a href='/'>Back home</a>
             </span>

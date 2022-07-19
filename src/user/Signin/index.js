@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import "./styles.css";
-import Menu from "src/component/Menu";
 
-// import Header from "src/component/Header";
-import Footer from "src/component/Footer";
 import {
   authSignInAsyncAction,
-  logOutAuto,
+  // logOutAuto,
 } from "src/store/user/user.action.js";
+
+import "./styles.css";
 
 const Signin = ({ history, ...props }) => {
   const [values, setValues] = useState({
@@ -41,72 +38,36 @@ const Signin = ({ history, ...props }) => {
 
   return (
     <div>
-      {/* <div className='container custom_class'>
-        <h2 className='signup_title '>SIGN IN </h2>
-        <form className=' col-sm-6 offset-3 pt-5 signup_form'>
-          <div className='form-outline mb-4'>
-            <input
-              onChange={handleChange("email")}
-              type='email'
-              id='form4Example2'
-              className='form-control'
-              value={email}
-            />
-            <label className='form-label' htmlFor='form4Example2'>
-              Email{" "}
-            </label>
-          </div>
-
-          <div className='form-outline mb-4'>
-            <input
-              onChange={handleChange("password")}
-              type='password'
-              id='form4Example3'
-              className='form-control'
-              value={password}
-            />
-            <label className='form-label' htmlFor='form4Example3'>
-              Password
-            </label>
-          </div>
-
-          <button
-            onClick={handleSubmit}
-            type='submit'
-            className='btn btn-primary btn-block mb-4'
-          >
-            Sign In
-          </button>
-          <h6>Not a user? {<Link to='/signup'>Sign Up</Link>} </h6>
-        </form>
-      </div> */}
-
-      <div class='container custom_class'>
-        <div class='row'>
-          <div class='col-md-offset-3 col-md-6'>
-            <form class='form-horizontal col-sm-12 offset-6 pt-5 signup_form'>
-              <span class='heading'>Log In</span>
-              <div class='form-group'>
+      <div className='container custom_class'>
+        <div className='row'>
+          <div className='col-md-offset-3 col-md-6'>
+            <form className='form-horizontal col-sm-12 offset-6 pt-5 signup_form'>
+              <span className='heading'>Log In</span>
+              <div className='form-group'>
                 <input
                   type='email'
-                  class='form-control'
+                  className='form-control'
                   id='inputEmail3'
                   placeholder='Email'
+                  onChange={handleChange("email")}
+                  value={email}
                 />
-                <i class='fa fa-user'></i>
+                <i className='fa fa-user'></i>
               </div>
-              <div class='form-group help'>
+              <div className='form-group help'>
                 <input
                   type='password'
-                  class='form-control'
+                  className='form-control'
                   id='inputPassword3'
                   placeholder='Password'
+                  onChange={handleChange("password")}
+                  value={password}
                 />
-                <i class='fa fa-lock'></i>
-                <a href='#' class='fa fa-question-circle'></a>
+                <i className='fa fa-lock'></i>
+                <a href='#' className='fa fa-question-circle'></a>
               </div>
-              <div class='form-group'>
-                <div class='main-checkbox'>
+              <div className='form-group'>
+                <div className='main-checkbox'>
                   <input
                     type='checkbox'
                     value='None'
@@ -115,12 +76,16 @@ const Signin = ({ history, ...props }) => {
                   />
                   <label for='checkbox1'></label>
                 </div>
-                <span class='text'>Remember me</span>
-                <button type='submit' class='btn btn-default'>
+                <span className='text'>Remember me</span>
+                <button
+                  type='submit'
+                  className='btn btn-default'
+                  onClick={handleSubmit}
+                >
                   log in
                 </button>
               </div>
-              <span class='register'>
+              <span className='register'>
                 <a href='/signup'>Signup /</a>
                 <a href='#'>Forgot password</a>
               </span>

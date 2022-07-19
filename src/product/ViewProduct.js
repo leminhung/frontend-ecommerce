@@ -96,177 +96,177 @@ const ViewProduct = ({ match, history }) => {
     <>
       <Menu />
       <div className='container single_product'>
-        {loading ? (
+        {/* {loading ? (
           <Loading />
-        ) : (
-          <div className='row'>
-            <div className='col-sm-6 '>
-              <div className='img_div'>
-                <img
-                  className='img-fluid'
-                  src={avatar ? avatar : ""}
-                  alt={name}
-                />
-                <div className='review' style={{ paddingTop: "10px" }}>
-                  <h4>REVIEWS</h4>
+        ) :  */}
 
-                  {reviews && reviews.length === 0 && (
-                    <>
-                      <div
-                        class='alert alert-warning alert_warning_custom'
-                        role='alert'
-                        data-mdb-color='warning'
-                      >
-                        {" "}
-                        No review added yet{" "}
-                      </div>
-                    </>
-                  )}
+        <div className='row'>
+          <div className='col-sm-6 '>
+            <div className='img_div'>
+              <img
+                className='img-fluid'
+                src={avatar ? avatar : ""}
+                alt={name}
+              />
+              <div className='review' style={{ paddingTop: "10px" }}>
+                <h4>REVIEWS</h4>
 
-                  <div className='review_loop'>
-                    {reviews &&
-                      reviews.map((review) => (
-                        <ul className='review_list'>
-                          <li>
-                            <strong>{review.name}</strong>
-                          </li>
-                          <li>
-                            <Rating value={review.rating} />
-                          </li>
-                          <li>
-                            <strong>
-                              {new Date(review.createdAt).toLocaleDateString()}
-                            </strong>
-                          </li>
-                          <li>
-                            <p>{review.comment}</p>
-                          </li>
-                        </ul>
-                      ))}
-                    <hr />
-                    <div className='review_comment'>
-                      {isAuthenticated ? (
-                        <>
-                          <form
-                            className='col-sm-6  pt-5'
-                            onSubmit={submitRating}
-                          >
-                            <h4>Leave a review</h4>
-                            <div className='mb-2'>
-                              <select
-                                class='mdb-select'
-                                onChange={(e) => setRating(e.target.value)}
-                                value={rating}
-                                required
-                              >
-                                <option value='' selected>
-                                  Choose your rating
-                                </option>
-                                <option value='1'> 1 - Poor</option>
-                                <option value='2'> 2 - Fair</option>
-                                <option value='3'> 3 - Good</option>
-                                <option value='4'> 4 - Very Good</option>
-                                <option value='5'> 5 - Excellent</option>
-                              </select>
-                            </div>
-                            <div className='mb-4'>
-                              <label
-                                className='form-label'
-                                htmlFor='form4Example1'
-                              >
-                                Leave a comment
-                              </label>
-                              <textarea
-                                required
-                                value={comment}
-                                onChange={(e) => setComment(e.target.value)}
-                                className='form-control'
-                                name=''
-                                id=''
-                                cols='100'
-                                rows='3'
-                                placeholder='Comment...'
-                              ></textarea>
-                            </div>
-                            <button
-                              type='submit'
-                              className='btn btn-primary btn-block mb-4'
+                {reviews && reviews.length === 0 && (
+                  <>
+                    <div
+                      className='alert alert-warning alert_warning_custom'
+                      role='alert'
+                      data-mdb-color='warning'
+                    >
+                      {" "}
+                      No review added yet{" "}
+                    </div>
+                  </>
+                )}
+
+                <div className='review_loop'>
+                  {reviews &&
+                    reviews.map((review) => (
+                      <ul className='review_list'>
+                        <li>
+                          <strong>{review.name}</strong>
+                        </li>
+                        <li>
+                          <Rating value={review.rating} />
+                        </li>
+                        <li>
+                          <strong>
+                            {new Date(review.createdAt).toLocaleDateString()}
+                          </strong>
+                        </li>
+                        <li>
+                          <p>{review.comment}</p>
+                        </li>
+                      </ul>
+                    ))}
+                  <hr />
+                  <div className='review_comment'>
+                    {isAuthenticated ? (
+                      <>
+                        <form
+                          className='col-sm-6  pt-5'
+                          onSubmit={submitRating}
+                        >
+                          <h4>Leave a review</h4>
+                          <div className='mb-2'>
+                            <select
+                              className='mdb-select'
+                              onChange={(e) => setRating(e.target.value)}
+                              value={rating}
+                              required
                             >
-                              Add review
-                            </button>
-                          </form>
-                        </>
-                      ) : (
-                        <>
-                          Please <Link to={"/signin"}>Sign In</Link> to leave a
-                          review
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='col-sm-6'>
-              <div className='product_desc_wrapper'>
-                <div className='product_title'>
-                  <h1>{name}</h1>
-                  <span>
-                    <h6>Product # {_id}</h6>
-                  </span>
-                  <hr />
-                  <h1>${price}</h1>
-                </div>
-
-                <div className='qty_and_addtocart'>
-                  <div>
-                    <div
-                      onClick={decreaseValue}
-                      class='value-button'
-                      id='decrease'
-                      value='Decrease Value'
-                    >
-                      -
-                    </div>
-                    <input type='number' id='number' value={qty} readOnly />
-                    <div
-                      onClick={increaseValue}
-                      class='value-button'
-                      id='increase'
-                      value='Increase Value'
-                    >
-                      +
-                    </div>
-                  </div>
-                  <button
-                    style={{ display: countStock ? "block" : "none" }}
-                    onClick={handleClickCard}
-                    className='addtocart'
-                  >
-                    Add to cart
-                  </button>
-                </div>
-                <div className='stock'>
-                  <hr />
-                  <h6>
-                    Status:{" "}
-                    {countStock < 1 ? (
-                      <span className='text-danger'>Out of Stock</span>
+                              <option value='' selected>
+                                Choose your rating
+                              </option>
+                              <option value='1'> 1 - Poor</option>
+                              <option value='2'> 2 - Fair</option>
+                              <option value='3'> 3 - Good</option>
+                              <option value='4'> 4 - Very Good</option>
+                              <option value='5'> 5 - Excellent</option>
+                            </select>
+                          </div>
+                          <div className='mb-4'>
+                            <label
+                              className='form-label'
+                              htmlFor='form4Example1'
+                            >
+                              Leave a comment
+                            </label>
+                            <textarea
+                              required
+                              value={comment}
+                              onChange={(e) => setComment(e.target.value)}
+                              className='form-control'
+                              name=''
+                              id=''
+                              cols='100'
+                              rows='3'
+                              placeholder='Comment...'
+                            ></textarea>
+                          </div>
+                          <button
+                            type='submit'
+                            className='btn btn-primary btn-block mb-4'
+                          >
+                            Add review
+                          </button>
+                        </form>
+                      </>
                     ) : (
-                      <span className='text-success'>Available</span>
+                      <>
+                        Please <Link to={"/signin"}>Sign In</Link> to leave a
+                        review
+                      </>
                     )}
-                  </h6>
-                </div>
-
-                <hr />
-                <div className='desc'>
-                  <h2>Description</h2>
-                  <p>{description}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        )}
+          <div className='col-sm-6'>
+            <div className='product_desc_wrapper'>
+              <div className='product_title'>
+                <h1>{name}</h1>
+                <span>
+                  <h6>Product # {_id}</h6>
+                </span>
+                <hr />
+                <h1>${price}</h1>
+              </div>
+
+              <div className='qty_and_addtocart'>
+                <div>
+                  <div
+                    onClick={decreaseValue}
+                    className='value-button'
+                    id='decrease'
+                    value='Decrease Value'
+                  >
+                    -
+                  </div>
+                  <input type='number' id='number' value={qty} readOnly />
+                  <div
+                    onClick={increaseValue}
+                    className='value-button'
+                    id='increase'
+                    value='Increase Value'
+                  >
+                    +
+                  </div>
+                </div>
+                <button
+                  style={{ display: countStock ? "block" : "none" }}
+                  onClick={handleClickCard}
+                  className='addtocart'
+                >
+                  Add to cart
+                </button>
+              </div>
+              <div className='stock'>
+                <hr />
+                <h6>
+                  Status:{" "}
+                  {countStock < 1 ? (
+                    <span className='text-danger'>Out of Stock</span>
+                  ) : (
+                    <span className='text-success'>Available</span>
+                  )}
+                </h6>
+              </div>
+
+              <hr />
+              <div className='desc'>
+                <h2>Description</h2>
+                <p>{description}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <Footer />
     </>

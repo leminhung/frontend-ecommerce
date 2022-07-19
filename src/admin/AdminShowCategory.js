@@ -91,7 +91,7 @@ const AdminShowCategory = () => {
                   <td>
                     <Link to={`/admin/product/category/edit/${category._id}`}>
                       {" "}
-                      <i class='fas fa-edit btn-primary'></i>
+                      <i className='fas fa-edit btn-primary'></i>
                     </Link>
                   </td>
                   <td>
@@ -99,7 +99,7 @@ const AdminShowCategory = () => {
                       onClick={() =>
                         deleteCategory(category._id, category.name)
                       }
-                      class='far fa-trash-alt btn-danger'
+                      className='far fa-trash-alt btn-danger'
                       style={{ cursor: "pointer" }}
                     ></i>
                   </td>

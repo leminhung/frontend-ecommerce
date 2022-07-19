@@ -61,7 +61,7 @@ const AddToCart = ({ history }) => {
                           onClick={() =>
                             decreaseValue(item.product, item.quantity)
                           }
-                          class='value-button'
+                          className='value-button'
                           id='decrease'
                           value='Decrease Value'
                         >
@@ -81,7 +81,7 @@ const AddToCart = ({ history }) => {
                               item.countStock
                             )
                           }
-                          class='value-button'
+                          className='value-button'
                           id='increase'
                           value='Increase Value'
                         >

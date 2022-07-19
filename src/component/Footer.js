@@ -223,7 +223,7 @@ const Footer = () => {
         </div>
       </footer>
       {/* GO TO TOP */}
-      <a href='#top' class='go-top-btn' data-go-top ref={refBackToTop}>
+      <a href='#top' className='go-top-btn' data-go-top ref={refBackToTop}>
         <ion-icon name='arrow-up-outline'></ion-icon>
       </a>
     </>

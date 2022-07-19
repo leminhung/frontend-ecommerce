@@ -93,7 +93,7 @@ const AdminDashboard = () => {
                   <td>
                     <Link to={`/admin/product/edit/${product._id}`}>
                       {" "}
-                      <i class='fas fa-edit btn-primary'></i>
+                      <i className='fas fa-edit btn-primary'></i>
                     </Link>
                   </td>
                   <td

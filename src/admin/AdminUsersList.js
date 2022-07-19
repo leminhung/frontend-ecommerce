@@ -86,13 +86,13 @@ const AdminUsersList = () => {
                   <td>
                     <Link to={`/admin/user/edit/${user._id}`}>
                       {" "}
-                      <i class='fas fa-edit btn-primary'></i>
+                      <i className='fas fa-edit btn-primary'></i>
                     </Link>
                   </td>
                   <td>
                     <i
                       onClick={() => deleteUser(user._id, user.name)}
-                      class='far fa-trash-alt btn-danger'
+                      className='far fa-trash-alt btn-danger'
                       style={{ cursor: "pointer" }}
                     ></i>
                   </td>

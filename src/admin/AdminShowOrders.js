@@ -173,7 +173,7 @@ const AdminShowOrders = () => {
                     <td>
                       <i
                         onClick={() => confirmOrderPayment(order._id)}
-                        class='fa-solid fa-dollar-sign'
+                        className='fa-solid fa-dollar-sign'
                         style={{
                           cursor: "pointer",
                           paddingLeft: "20px",
@@ -184,14 +184,14 @@ const AdminShowOrders = () => {
                     <td>
                       <i
                         onClick={() => orderDeliveredHome(order._id)}
-                        class='fa-solid fa-house-chimney'
+                        className='fa-solid fa-house-chimney'
                         style={{ cursor: "pointer", marginLeft: "20px" }}
                       ></i>
                     </td>
                     <td>
                       <i
                         onClick={() => deleteOrder(order._id)}
-                        class='far fa-trash-alt btn-danger'
+                        className='far fa-trash-alt btn-danger'
                         style={{ cursor: "pointer", marginLeft: "20px" }}
                       ></i>
                     </td>

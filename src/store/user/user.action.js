@@ -1,8 +1,5 @@
 import { toast } from "react-toastify";
-import {
-  CART_EMPTY,
-  CLEAR_SHIPPING_ADDRESS,
-} from "src/constants/cartConstants";
+
 import AuthServices from "./user.service";
 
 export const AuthActionsEnum = {
