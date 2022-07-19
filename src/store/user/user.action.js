@@ -1,5 +1,3 @@
-import { toast } from "react-toastify";
-
 import AuthServices from "./user.service";
 
 export const AuthActionsEnum = {
@@ -57,11 +55,10 @@ export const authSignInAsyncAction = (email, password) => async (dispatch) => {
   try {
     dispatch(authLoadingAction());
     const res = await AuthServices.signIn(email, password);
+    console.log(res);
     dispatch(authSetDataAction(res.data));
-    toast.success("Login successfully");
   } catch (error) {
     dispatch(authFailedAction(error.message));
-    toast.error(error.response.data.error);
   } finally {
     dispatch(authStopLoadingAction());
   }

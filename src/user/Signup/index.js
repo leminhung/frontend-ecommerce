@@ -33,24 +33,13 @@ const Signup = ({ history }) => {
         }
       );
 
-      switch (status) {
-        case 200:
-          toast.success("Account created, please log In");
-          setValues({ name: "", email: "", password: "", repassword: "" });
-          break;
-        case 400:
-          toast.error("Account existed, try another");
-          setValues({ name: "", email: "", password: "", repassword: "" });
-          break;
-        case 404:
-          toast.error("Please fill in form");
-          setValues({ name: "", email: "", password: "", repassword: "" });
-          break;
-        default:
-          break;
+      if (status === 200) {
+        toast.success("Account created, please log In");
+        history.push("/signin");
+      } else if (status === 400) {
+        toast.error("Account existed, try another");
+        setValues({ name: "", email: "", password: "", repassword: "" });
       }
-
-      // history.push("/signin");
     } catch (err) {
       if (err.response.data.success === false) {
         toast.error(err.response.data.error);
@@ -72,6 +61,7 @@ const Signup = ({ history }) => {
                 id='inputEmail3'
                 placeholder='Email'
                 value={email}
+                autocompleted
               />
               <i className='fa fa-envelope'></i>
             </div>
@@ -83,6 +73,7 @@ const Signup = ({ history }) => {
                 id='inputEmail3'
                 placeholder='Username'
                 value={name}
+                autocompleted
               />
               <i className='fa fa-user'></i>
             </div>
