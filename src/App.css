@@ -346,6 +346,56 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+/* Content */
+
+.wrap-product-img {
+  position: relative;
+  user-select: none;
+}
+
+.product-img {
+  width: 100%;
+  height: 690px;
+  object-fit: cover;
+}
+
+
+.control-img {
+  display: flex;
+}
+
+.prev {
+  font-size: 40px;
+  position: absolute;
+  top: 50%;
+  cursor: pointer;
+}
+
+.next {
+  font-size: 40px;
+  position: absolute;
+  top: 50%;
+  left: 92%;
+  cursor: pointer;
+}
+
+.price-discount-wrap {
+  display: flex;
+}
+
+.price-wrap {
+  margin-right: 15px;
+}
+
+.price-discount {
+  color: tomato;
+}
+
+.price-prev {
+  font-size: 14px;
+  text-decoration: line-through;
+}
+
 .product-color {
 
   margin-top: 20px;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Header from "src/component/Header";
@@ -20,6 +20,7 @@ const ViewProduct = ({ match, history }) => {
     discount,
     size,
     color,
+    category,
     countStock,
     reviews,
     numReviews,
@@ -39,9 +40,7 @@ const ViewProduct = ({ match, history }) => {
         setProduct(res.data.data);
         setLoading(false);
       });
-    console.log("done ")
   }, [numReviews]);
-  console.log(product);
 
   const handleClickCard = () => {
     dispatch(addItemToCart(match.params.productid, qty));
@@ -102,29 +101,110 @@ const ViewProduct = ({ match, history }) => {
   //Chose color
   const [colorChose, setColorChose] = useState("")
   function handleChoseColor(e) {
-    e.target.classList.toggle("color-item-chose");
-    document.querySelectorAll('[color]')
-
+    const colorItems = document.querySelectorAll('.product-color-item')
+    colorItems.forEach((item) => {
+      item.classList.remove("color-item-chose")
+    })
+    e.target.classList.add("color-item-chose");
   }
+
+  //Chose size
+  const [sizeChose, setSizeChose] = useState("")
+  function handleChoseSize(e) {
+    const sizeItems = document.querySelectorAll('.product-size-item')
+    sizeItems.forEach((item) => {
+      item.classList.remove("size-item-chose")
+    })
+    e.target.classList.add("size-item-chose");
+  }
+
+  // handle slide img
+  const imgs = [
+    'https://traffic-edge36.cdn.vncdn.io/nvn/ncdn/store/662/ps/20220711/GN0153__2_.jpg',
+    'https://traffic-edge35.cdn.vncdn.io/nvn/ncdn/store/662/ps/20220711/GN0153__4_.jpg',
+    'https://traffic-edge30.cdn.vncdn.io/nvn/ncdn/store/662/ps/20220711/GN0153__5_.jpg',
+    'https://traffic-edge26.cdn.vncdn.io/nvn/ncdn/store/662/ps/20220711/GN0153__6_.jpg',
+    // 'https://image-us.24h.com.vn/upload/3-2022/images/2022-07-19/jenni6-1658193370-610-width700height983.jpg'
+  ]
+  const [imgCount, setImgCount] = useState(0)
+  function handleNextImg() {
+    if (imgCount >= imgs.length - 1) {
+      setImgCount(0)
+    }
+    else {
+      setImgCount(prev => prev + 1)
+    }
+  }
+  function handlePrevImg() {
+    if (imgCount <= 0) {
+      setImgCount(imgs.length - 1)
+    }
+    else {
+      setImgCount(prev => prev - 1)
+    }
+  }
+  useEffect(() => {
+    setInterval(() => {
+      setImgCount(prev => {
+        if (prev >= imgs.length - 1) {
+          return 0;
+        }
+        else {
+          return prev + 1;
+        }
+      })
+    }, 5000)
+  }, [])
   return (
     <>
       <Header></Header>
       <div className='container single_product'>
-        {false ? (
+        {loading ? (
           <Loading />
         ) : (
+
           <div className='row'>
-            <div className='col-sm-6 '>
-              <img style={{ width: "100%" }} src="https://traffic-edge07.cdn.vncdn.io/nvn/ncdn/store/662/ps/20220711/GN0153__2_.jpg" alt="" />
+            <div className="col-sm-12">
+              <p className="menu-nav-link">
+                Home - {category} - {title}
+              </p>
             </div>
-            <div className='col-sm-6'>
+            <div className='col-sm-7 wrap-product-img'>
+              <div className="control-img" >
+                <div
+                  className="prev"
+                >
+                  <ion-icon
+                    onClick={handlePrevImg}
+                    name="chevron-back-outline"
+                  ></ion-icon>
+                </div>
+                <div
+                  className="next"
+                >
+                  <ion-icon
+                    onClick={handleNextImg}
+                    name="chevron-forward-outline"
+                  ></ion-icon>
+                </div>
+              </div>
+              <img id="product-img" className="product-img"
+                src={imgs[imgCount]} alt="" />
+            </div>
+            <div className='col-sm-5'>
               <div className='product_desc_wrapper'>
                 <div className='product_title'>
                   <h1>{title}</h1>
 
                   <hr />
-                  <h2>${price}</h2>
-                  <h4>-{discount}%</h4>
+                  <div className="price-discount-wrap">
+                    <div className="price-wrap">
+                      <h2 className="price-discount">${price * (discount / 100)}</h2>
+                      <h2 className="price-prev">${price}</h2>
+                    </div>
+                    <h4>-{discount}%</h4>
+                  </div>
+
                 </div>
 
                 <div className='qty_and_addtocart'>
@@ -172,16 +252,19 @@ const ViewProduct = ({ match, history }) => {
                     <div className="product-size-list">
                       <div
                         className="product-size-item size-item-chose"
+                        onClick={handleChoseSize}
                       >
                         M
                       </div>
                       <div
                         className="product-size-item"
+                        onClick={handleChoseSize}
                       >
                         L
                       </div>
                       <div
                         className="product-size-item"
+                        onClick={handleChoseSize}
                       >
                         XL
                       </div>
@@ -190,7 +273,7 @@ const ViewProduct = ({ match, history }) => {
                   <button
                     // style={{ display: countStock ? "block" : "none" }}
                     onClick={handleClickCard}
-                    className='addtocart'
+                    className='addtocart btn btn-primary btn-block mb-4'
                   >
                     Add to cart
                   </button>

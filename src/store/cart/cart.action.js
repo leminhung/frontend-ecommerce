@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
-  const { data } = await axios.get(`/api/product/${id}`);
+  const { data } = await axios.get(`/api/v1/products/${id}`);
   //console.log("datacarAction", data)
   dispatch({
     type: ADD_TO_CART,
@@ -23,7 +23,7 @@ export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
   });
 
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
-  //toast.success("Added successfully");
+  // toast.success("Added successfully");
 };
 
 //remove item in the cart
