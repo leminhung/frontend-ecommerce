@@ -11,16 +11,26 @@ const Header = () => {
   const refHeader = useRef(null);
 
   window.addEventListener("scroll", function () {
-    if (window.scrollY >= 50) {
-      refHeader.current.classList.add("active");
-    } else {
-      refHeader.current.classList.remove("active");
+    try {
+      if (window.scrollY >= 50) {
+        refHeader.current.classList.add("active");
+      } else {
+        refHeader.current.classList.remove("active");
+      }
+    } catch (err) {
+      console.log(err);
     }
+
   });
 
   const toggleNavbar = () => {
-    refNavbar.current.classList.toggle("active");
-    refOverlay.current.classList.toggle("active");
+    try {
+      refNavbar.current.classList.toggle("active");
+      refOverlay.current.classList.toggle("active");
+    } catch (err) {
+      console.log(err);
+    }
+
   };
 
   return (
@@ -139,7 +149,7 @@ const Header = () => {
               <button className='nav-action-btn'>
                 <Link to={
                   {
-                    pathname:"./../Cart",
+                    pathname: "./../Cart",
                   }
                 }>
                 </Link>

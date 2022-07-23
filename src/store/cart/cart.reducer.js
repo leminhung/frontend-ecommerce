@@ -1,9 +1,11 @@
+import axios from "axios";
 import {
   ADD_TO_CART,
   REMOVE_TO_CART,
   SAVE_SHIPPING_ADDRESS,
   CART_EMPTY,
   CLEAR_SHIPPING_ADDRESS,
+  GET_CART_PRODUCTS,
 } from "src/constants/cartConstants";
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
@@ -50,7 +52,25 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
         ...state,
         cartItems: [],
       };
-
+    case GET_CART_PRODUCTS: {
+     
+      try{
+        const url ="https://62d6582a51e6e8f06f0722d2.mockapi.io/api/cart/cart";
+        const cartItems = axios.get(url).then((resp)=>resp.data);
+        return {
+          ...state,
+          cartItems:cartItems
+        }
+      }catch(err){
+        console.log(err);
+        return {
+          ...state,
+          cartItems:[],
+        }
+      }
+     
+     
+    }
     default:
       return state;
   }
