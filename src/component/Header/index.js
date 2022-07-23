@@ -12,16 +12,26 @@ const Header = ({ user }) => {
   const refHeader = useRef(null);
 
   window.addEventListener("scroll", function () {
-    if (window.scrollY >= 50) {
-      refHeader.current.classList.add("active");
-    } else {
-      refHeader.current.classList.remove("active");
+    try {
+      if (window.scrollY >= 50) {
+        refHeader.current.classList.add("active");
+      } else {
+        refHeader.current.classList.remove("active");
+      }
+    } catch (err) {
+      console.log(err);
     }
+
   });
 
   const toggleNavbar = () => {
-    refNavbar.current.classList.toggle("active");
-    refOverlay.current.classList.toggle("active");
+    try {
+      refNavbar.current.classList.toggle("active");
+      refOverlay.current.classList.toggle("active");
+    } catch (err) {
+      console.log(err);
+    }
+
   };
 
   return (
@@ -130,6 +140,12 @@ const Header = ({ user }) => {
 
             <li>
               <button className='nav-action-btn'>
+                <Link to={
+                  {
+                    pathname: "./../Cart",
+                  }
+                }>
+                </Link>
                 <ion-icon name='bag-outline' aria-hidden='true'></ion-icon>
 
                 <data className='nav-action-text' value='318.00'>

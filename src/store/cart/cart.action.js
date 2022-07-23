@@ -3,6 +3,7 @@ import {
   REMOVE_TO_CART,
   SAVE_SHIPPING_ADDRESS,
   CLEAR_SHIPPING_ADDRESS,
+  GET_CART_PRODUCTS
 } from "src/constants/cartConstants";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -57,3 +58,10 @@ export const clearShippingAddress = (data) => async (dispatch) => {
 
   localStorage.removeItem("shippingAddress");
 };
+
+export const getCartProducts = () =>async (dispatch)=>{
+  dispatch({
+    type: GET_CART_PRODUCTS,
+    payload:{}
+  });
+}

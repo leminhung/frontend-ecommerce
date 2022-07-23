@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import Menu from "src/component/Menu";
+import Header from "src/component/Header";
 import Footer from "src/component/Footer";
-import { addItemToCart, removeToCart } from "src/store/cart/cart.action";
+import { addItemToCart, removeToCart ,getCartProducts} from "src/store/cart/cart.action";
+
 
 const AddToCart = ({ history }) => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
+
+  useEffect(()=>{
+    try{
+      dispatch(getCartProducts());
+    }catch(err){
+      console.log(err);
+    }
+   
+  },[])
 
   //INCREASE VALUE
   const increaseValue = (id, quantity, countStock) => {
@@ -35,7 +44,8 @@ const AddToCart = ({ history }) => {
 
   return (
     <>
-      <Menu />
+      {/* HEADER */}
+      <Header />
       <div className='container wrapper_add_to_Cart'>
         <div className='row'>
           <div className='col-sm-9'>
