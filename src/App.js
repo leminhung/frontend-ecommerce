@@ -1,13 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import Header from "src/component/Header";
 import Footer from "src/component/Footer";
 
 const App = () => {
+  const user = useSelector((state) => state.auth?.user);
   return (
     <>
       {/* HEADER */}
-      <Header />
+      <Header user={user} />
 
       {/* MAIN */}
       <main>

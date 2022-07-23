@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import axios from "axios";
 
 import AuthServices from "./user.service";
 
@@ -12,6 +13,8 @@ export const AuthActionsEnum = {
   RESET_ERROR: "auth/RESET_ERROR",
   SUBMITTING: "auth/SUBMITTING",
   STOP_SUBMITTING: "auth/STOP_SUBMITTING",
+  LOGOUT_SUCCESS: "auth/LOGOUT_SUCCESS",
+  LOGOUT_FAIL: "auth/LOGOUT_FAIL",
 };
 
 export const authLoadingAction = () => ({
@@ -57,11 +60,13 @@ export const authSignInAsyncAction = (email, password) => async (dispatch) => {
   try {
     dispatch(authLoadingAction());
     const res = await AuthServices.signIn(email, password);
-    dispatch(authSetDataAction(res.data));
     toast.success("Login successfully");
-  } catch (error) {
-    dispatch(authFailedAction(error.message));
-    toast.error(error.response.data.error);
+    dispatch(authSetDataAction(res.data));
+  } catch (err) {
+    const { status, data } = err.response;
+    if (status === 401) toast.error(data.msg);
+    if (status === 404) toast.error(data.msg);
+    dispatch(authFailedAction(data.msg));
   } finally {
     dispatch(authStopLoadingAction());
   }
@@ -83,24 +88,26 @@ export const authSignInAsyncAction = (email, password) => async (dispatch) => {
 //   }
 // };
 
-// //LOG OUT
-// export const logOut = () => async (dispatch) => {
-//   try {
-//     const { data } = await axios.get("/api/logout");
-//     dispatch({
-//       type: LOGOUT_SUCCESS,
-//     });
-//     dispatch({ type: CART_EMPTY });
-//     dispatch({ type: CLEAR_SHIPPING_ADDRESS });
-//     localStorage.removeItem("cartItems");
-//     localStorage.removeItem("shippingAddress");
-//   } catch (error) {
-//     dispatch({
-//       type: LOGOUT_FAIL,
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
+//LOG OUT
+export const logOut = () => async (dispatch) => {
+  console.log("Hello Hung");
+  try {
+    const { data } = await axios.get("api/v1/auth/logout");
+    dispatch({
+      type: AuthActionsEnum.LOGOUT_SUCCESS,
+    });
+    console.log(data);
+    // dispatch({ type: CART_EMPTY });
+    // dispatch({ type: CLEAR_SHIPPING_ADDRESS });
+    // localStorage.removeItem("cartItems");
+    // localStorage.removeItem("shippingAddress");
+  } catch (error) {
+    dispatch({
+      type: AuthActionsEnum.LOGOUT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 // export const logOutAuto = () => async (dispatch) => {
 //   setTimeout(async () => {

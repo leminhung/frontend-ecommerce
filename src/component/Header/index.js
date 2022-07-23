@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+import { logOut } from "src/store/user/user.action.js";
 
 import "./styles.css";
 
-const Header = () => {
+const Header = ({ user }) => {
   const refNavOpenBtn = useRef(null);
   const refNavCloseBtn = useRef(null);
   const refOverlay = useRef(null);
@@ -115,14 +116,6 @@ const Header = () => {
                 <span className='nav-action-text'>Search</span>
               </button>
             </li>
-            {/* <li>
-              <a href='/signin' className='nav-action-btn'>
-                <ion-icon name='person-outline' aria-hidden='true'></ion-icon>
-
-                <span className='nav-action-text'>Login / Register</span>
-              </a>
-            </li> */}
-
             <li>
               <button className='nav-action-btn'>
                 <ion-icon name='heart-outline' aria-hidden='true'></ion-icon>
@@ -159,15 +152,6 @@ const Header = () => {
               >
                 <ion-icon name='person-outline' aria-hidden='true'></ion-icon>
                 <span className='nav-action-text custom_options'>Options</span>
-
-                {/* <img
-                  // src={user && user.avatar ? user.avatar : avatar}
-                  src='/ds'
-                  className='rounded-circle'
-                  height='25'
-                  alt=''
-                  loading='lazy'
-                /> */}
               </Link>
               <ul
                 className='dropdown-menu dropdown-menu-end'
@@ -188,6 +172,16 @@ const Header = () => {
                     Sign up
                   </Link>
                 </li>
+                {/* Fix bugs */}
+                {/* {user ? (
+                  <li>
+                    <div className='dropdown-item' onClick={() => logOut()}>
+                      Sign out
+                    </div>
+                  </li>
+                ) : (
+                  ""
+                )} */}
                 <li>
                   <Link className='dropdown-item' to='/admin/dashboard'>
                     Admin Dashboard
