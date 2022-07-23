@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  authSignInAsyncAction,
-  // logOutAuto,
-} from "src/store/user/user.action.js";
+import { authSignInAsyncAction } from "src/store/user/user.action.js";
 
 import "./styles.css";
 
-const Signin = ({ history, ...props }) => {
+const Signin = ({ history }) => {
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -17,15 +14,13 @@ const Signin = ({ history, ...props }) => {
   const { email, password } = values;
   const dispatch = useDispatch();
 
-  const auth = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth?.user);
 
   useEffect(() => {
-    const { isAuthenticated } = auth;
-    console.log(isAuthenticated);
-    if (isAuthenticated) {
-      // history.push("/");
+    if (user && user.data?.token) {
+      history.push("/");
     }
-  }, [auth, history]);
+  }, [user, history]);
 
   const handleChange = (name) => (e) => {
     setValues({ ...values, [name]: e.target.value });
@@ -33,7 +28,8 @@ const Signin = ({ history, ...props }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(authSignInAsyncAction(email, password));
+    if (email !== "" && password !== "")
+      dispatch(authSignInAsyncAction(email, password));
   };
 
   return (
@@ -51,6 +47,7 @@ const Signin = ({ history, ...props }) => {
                   placeholder='Email'
                   onChange={handleChange("email")}
                   value={email}
+                  required
                 />
                 <i className='fa fa-user'></i>
               </div>
@@ -62,6 +59,7 @@ const Signin = ({ history, ...props }) => {
                   placeholder='Password'
                   onChange={handleChange("password")}
                   value={password}
+                  required
                 />
                 <i className='fa fa-lock'></i>
                 <a href='#' className='fa fa-question-circle'></a>

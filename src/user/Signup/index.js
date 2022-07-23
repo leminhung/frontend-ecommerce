@@ -24,7 +24,7 @@ const Signup = ({ history }) => {
     e.preventDefault();
 
     try {
-      const { data, status } = await axios.post(
+      const { status } = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/auth/register`,
         {
           name,
@@ -32,17 +32,15 @@ const Signup = ({ history }) => {
           password,
         }
       );
-
       if (status === 200) {
         toast.success("Account created, please log In");
         history.push("/signin");
-      } else if (status === 400) {
-        toast.error("Account existed, try another");
-        setValues({ name: "", email: "", password: "", repassword: "" });
       }
     } catch (err) {
-      if (err.response.data.success === false) {
-        toast.error(err.response.data.error);
+      const { status } = err.response;
+      if (status === 400) {
+        toast.error("Account existed, try another");
+        setValues({ name: "", email: "", password: "", repassword: "" });
       }
     }
   };
